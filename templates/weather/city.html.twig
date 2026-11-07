@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Pogoda w {{ location.name }}, {{ location.country }}
+{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Pogoda w {{ location.name }}, {{ location.country }}</h1>
+
+        <ul>
+            {% for measurement in measurements %}
+                <li style="margin-bottom: 15px;">
+                    <strong>
+                        {{ measurement.date|date('d.m.Y') }}
+                    </strong>
+                    <br>
+                    Temperatura: {{ measurement.celsius }}&deg;C
+                    <br>
+                    Wilgotność: {{ measurement.humidity }}%
+                    <br>
+                    Ciśnienie: {{ measurement.pressure }} hPa
+                    <br>
+                    Opady: {{ measurement.precipitation }} mm
+                    <br>
+                    Kierunek wiatru: {{ measurement.windDirection }}&deg;
+                    <br>
+                    Prędkość wiatru: {{ measurement.windSpeed }} m/s
+                </li>
+            {% else %}
+                <li>Brak prognoz na przyszłe dni dla tej lokalizacji.</li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}
