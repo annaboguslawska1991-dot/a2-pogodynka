@@ -1,0 +1,130 @@
+App\Entity\Location:
+    properties:
+        name:
+            - NotBlank:
+                  message: 'Podaj nazwę lokalizacji.'
+                  groups: [create, edit]
+
+        country:
+            - NotBlank:
+                  message: 'Wybierz państwo.'
+                  groups: [create, edit]
+
+        latitude:
+            - NotBlank:
+                  message: 'Podaj szerokość geograficzną.'
+                  groups: [create, edit]
+
+            # Dodawanie lokalizacji
+            - Range:
+                  min: -90
+                  max: 90
+                  notInRangeMessage: 'Szerokość geograficzna musi mieścić się w zakresie od {{ min }} do {{ max }} stopni.'
+                  groups: [create]
+
+            # Edycja lokalizacji
+            - Range:
+                  min: -90
+                  max: 90
+                  notInRangeMessage: 'Szerokość geograficzna musi mieścić się w zakresie od {{ min }} do {{ max }} stopni.'
+                  groups: [edit]
+
+        longitude:
+            - NotBlank:
+                  message: 'Podaj długość geograficzną.'
+                  groups: [create, edit]
+
+            # Dodawanie lokalizacji
+            - Range:
+                  min: -180
+                  max: 180
+                  notInRangeMessage: 'Długość geograficzna musi mieścić się w zakresie od {{ min }} do {{ max }} stopni.'
+                  groups: [create]
+
+            # Edycja lokalizacji
+            - Range:
+                  min: -180
+                  max: 180
+                  notInRangeMessage: 'Długość geograficzna musi mieścić się w zakresie od {{ min }} do {{ max }} stopni.'
+                  groups: [edit]
+
+App\Entity\Measurement:
+    properties:
+        date:
+            - NotNull:
+                  message: 'Podaj datę pomiaru.'
+                  groups: [create, edit]
+
+        celsius:
+            - NotBlank:
+                  message: 'Podaj temperaturę.'
+                  groups: [create, edit]
+            - Range:
+                  min: -273
+                  max: 999
+                  notInRangeMessage: 'Temperatura musi mieścić się w zakresie od {{ min }} do {{ max }} stopni Celsjusza.'
+                  groups: [create, edit]
+
+        humidity:
+            - NotBlank:
+                  message: 'Podaj wilgotność.'
+                  groups: [create, edit]
+
+            # Dodawanie pomiaru
+            - Range:
+                  min: 0
+                  max: 100
+                  notInRangeMessage: 'Wilgotność musi mieścić się w zakresie od {{ min }} do {{ max }}%.'
+                  groups: [create]
+
+            # Edycja pomiaru
+            - Range:
+                  min: 0
+                  max: 100
+                  notInRangeMessage: 'Wilgotność musi mieścić się w zakresie od {{ min }} do {{ max }}%.'
+                  groups: [edit]
+
+        pressure:
+            - NotBlank:
+                  message: 'Podaj ciśnienie.'
+                  groups: [create, edit]
+            - Range:
+                  min: 0.01
+                  max: 9999.99
+                  notInRangeMessage: 'Ciśnienie musi być dodatnie i mieścić się w zakresie od {{ min }} do {{ max }}.'
+                  groups: [create, edit]
+
+        precipitation:
+            - NotBlank:
+                  message: 'Podaj wielkość opadu. Jeśli nie było opadu, wpisz 0.'
+                  groups: [create, edit]
+            - Range:
+                  min: 0
+                  max: 9999.99
+                  notInRangeMessage: 'Wielkość opadu musi mieścić się w zakresie od {{ min }} do {{ max }}.'
+                  groups: [create, edit]
+
+        windDirection:
+            - NotBlank:
+                  message: 'Podaj kierunek wiatru.'
+                  groups: [create, edit]
+            - Range:
+                  min: 0
+                  max: 360
+                  notInRangeMessage: 'Kierunek wiatru musi mieścić się w zakresie od {{ min }} do {{ max }} stopni.'
+                  groups: [create, edit]
+
+        windSpeed:
+            - NotBlank:
+                  message: 'Podaj prędkość wiatru. Jeśli nie było wiatru, wpisz 0.'
+                  groups: [create, edit]
+            - Range:
+                  min: 0
+                  max: 999.99
+                  notInRangeMessage: 'Prędkość wiatru musi mieścić się w zakresie od {{ min }} do {{ max }}.'
+                  groups: [create, edit]
+
+        location:
+            - NotNull:
+                  message: 'Wybierz lokalizację pomiaru.'
+                  groups: [create, edit]
