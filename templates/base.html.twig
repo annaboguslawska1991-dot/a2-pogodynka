@@ -28,11 +28,16 @@
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
     {% endif %}
 </head>
+
 <body>
 {% set current_route = app.request.attributes.get('_route')|default('') %}
 
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" aria-label="Nawigacja główna">
+<nav class="navbar navbar-expand-lg bg-dark"
+     data-bs-theme="dark"
+     aria-label="Nawigacja główna">
+
     <div class="container">
+
         <a class="navbar-brand" href="{{ path('app_location_index') }}">
             Pogodynka
         </a>
@@ -44,11 +49,14 @@
                 aria-controls="mainNavigation"
                 aria-expanded="false"
                 aria-label="Rozwiń lub zwiń menu">
+
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="mainNavigation">
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                 <li class="nav-item">
                     <a class="nav-link{% if current_route starts with 'app_location_' %} active{% endif %}"
                        href="{{ path('app_location_index') }}"
@@ -56,6 +64,7 @@
                         Lokalizacje
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link{% if current_route starts with 'app_measurement_' %} active{% endif %}"
                        href="{{ path('app_measurement_index') }}"
@@ -63,7 +72,23 @@
                         Pomiary
                     </a>
                 </li>
+
             </ul>
+
+            {# logowanie i wylogowywanie #}
+
+            <ul class="navbar-nav">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+
         </div>
     </div>
 </nav>
